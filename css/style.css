@@ -23,6 +23,14 @@
     background-color: white;
 }
 
-.gridSquare:hover {
+/* .gridSquare:hover {
     background-color: aqua;
+} */
+
+#clear {
+    margin: auto;
+    margin-top: 30px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
 }
