@@ -23,14 +23,34 @@ function generateGrid(number) {
     }
 }
 
+function getRandomRGB() {
+    let color = '';
+    for (let i = 0; i < 3; i++) {
+      color += Math.floor(Math.random() * 256).toString() + ',';
+    }
+    return color
+}
+
 function fillSquare() {
-    this.style.backgroundColor = 'blue';
+
+    let count = this.getAttribute('count');
+
+    if (count == null) {
+        this.setAttribute('count', 1);
+        this.setAttribute('RGB', getRandomRGB());
+    } else if (count >= 10) {
+        null;
+    } else {
+        this.setAttribute('count', ++count)
+    }
+
+    this.style['background-color'] = `rgba(${this.getAttribute('RGB')}${1-count/10})`;
 }
 
 function resetGame(){
     clearGrid();
 
-    rowNum = prompt("How many rows and columns do you want? (max 75)", '16');
+    rowNum = prompt("How many rows and columns do you want? (max 75)", rowNum);
     (rowNum > 75) ? rowNum = 75 : null;
     document.documentElement.style.setProperty("--rowNum", rowNum);
     generateGrid(rowNum);
