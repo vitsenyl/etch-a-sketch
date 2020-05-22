@@ -1,9 +1,13 @@
 let htmlStyles = window.getComputedStyle(document.querySelector("html"));
 let rowNum = parseInt(htmlStyles.getPropertyValue("--rowNum"));
 const gridContainer = document.querySelector(".sketchGrid");
+let gridSquares = document.querySelectorAll(".gridSquare");
 
-// document.documentElement.style.setProperty("--rowNum", 6); Sets number of rows
-// document.documentElement.style.setProperty("--colNum", 6);
+/* Callback Functions*/
+document.querySelector("#clear").onclick = () => {resetGame()};
+
+
+/*Main Code*/
 
 function generateGrid(number) {
     
@@ -23,13 +27,20 @@ function fillSquare() {
     this.style.backgroundColor = 'blue';
 }
 
-function clearGrid() {
-    gridSquares.forEach(gridSquare => gridSquare.style = '');
+function resetGame(){
+    clearGrid();
+
+    rowNum = prompt("How many rows and columns do you want? (max 75)", '16');
+    (rowNum > 75) ? rowNum = 75 : null;
+    document.documentElement.style.setProperty("--rowNum", rowNum);
+    generateGrid(rowNum);
+
+    gridSquares = document.querySelectorAll(".gridSquare");
+    gridSquares.forEach(gridSquare => gridSquare.addEventListener('mouseenter', fillSquare));
 }
 
-generateGrid(rowNum);
+function clearGrid() {
+    gridContainer.innerHTML = '';
+}
 
-document.querySelector("#clear").onclick = () => {clearGrid()};
-
-const gridSquares = document.querySelectorAll(".gridSquare");
-gridSquares.forEach(gridSquare => gridSquare.addEventListener('mouseenter', fillSquare));
+resetGame()
